@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import { Schema, model } from "mongoose";
 import config from "../config.js";
 import { ThoughtSchema } from "../thought/index.js";
+import { generateToken } from "../utils.js";
 
 const UserSchema = new Schema({
   username: {
@@ -32,8 +33,14 @@ UserSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-UserSchema.methods.authenticate = function (password) {
-  // TODO: Implement this method
+UserSchema.methods.authenticate = async function (password) {
+  const isCorrectPassword = await this.isCorrectPassword(password);
+
+  if (!isCorrectPassword) {
+    throw new Error("Incorrect password");
+  }
+
+  return generateToken(this.username);
 };
 
 export default model("User", UserSchema);

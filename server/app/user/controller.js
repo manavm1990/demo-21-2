@@ -1,8 +1,12 @@
 import User from "./index.js";
 
 const controller = {
-  create(username, password) {
-    return User.create({ username, password });
+  async create(username, password) {
+    const createdUser = await User.create({ username, password });
+
+    const jwt = await createdUser.authenticate(password);
+
+    return { jwt };
   },
   async show(username, password) {
     const user = await User.findOne({ username });

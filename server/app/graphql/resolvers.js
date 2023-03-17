@@ -1,5 +1,6 @@
 import ProfileController from "../profile/controller.js";
 import ThoughtController from "../thought/controller.js";
+import UserController from "../user/controller.js";
 
 const resolvers = {
   Query: {
@@ -40,6 +41,9 @@ const resolvers = {
     },
     async deleteThought(_, { id }) {
       return await ThoughtController.delete(id);
+    },
+    async createUser(_, { username, password }) {
+      return await UserController.create(username, password);
     },
   },
 };
