@@ -29,12 +29,13 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 
-UserSchema.methods.isCorrectPassword = async function (password) {
-  return bcrypt.compare(password, this.password);
-};
-
 UserSchema.methods.authenticate = async function (password) {
-  const isCorrectPassword = await this.isCorrectPassword(password);
+  const isCorrectPassword = await bcrypt.compare(
+    password,
+
+    // 'this' references the document (user) that called this method
+    this.password
+  );
 
   if (!isCorrectPassword) {
     throw new Error("Incorrect password");
