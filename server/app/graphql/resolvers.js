@@ -45,6 +45,9 @@ const resolvers = {
     async createUser(_, { username, password }) {
       return await UserController.create(username, password);
     },
+    async login(_, { username, password }) {
+      return await UserController.login(username, password);
+    },
   },
 };
 

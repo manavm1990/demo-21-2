@@ -30,10 +30,12 @@ const typeDefs = gql`
     "Delete a thought 💭"
     deleteThought(id: ID!): Thought!
     "Create a new user"
-    createUser(username: String!, password: String!): CreateUserResponse!
+    createUser(username: String!, password: String!): CreateUserLoginResponse!
+    "Login a user"
+    login(username: String!, password: String!): CreateUserLoginResponse!
   }
 
-  type CreateUserResponse {
+  type CreateUserLoginResponse {
     jwt: ID!
   }
 

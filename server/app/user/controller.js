@@ -9,15 +9,11 @@ const controller = {
     return { jwt };
   },
   async show(username, password) {
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ username }).populate("thoughts");
 
-    const correctPassword = await user?.isCorrectPassword(password);
+    const jwt = await user?.authenticate(password);
 
-    if (!correctPassword) {
-      throw new Error("Incorrect password");
-    }
-
-    return user;
+    return { jwt, thoughts: user?.thoughts };
   },
 };
 

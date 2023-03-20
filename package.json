@@ -9,5 +9,12 @@
     "install": "cd client && npm install && cd ../server && npm install",
     "server": "node --watch server/app/index.js",
     "start": "concurrently \"npm run server\" \"npm run client\""
-  }
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
